@@ -37,18 +37,27 @@
     </style>
 </head>
 <body>
+    <audio id="bgMusic" loop style="display: none;">
+        <source src="Music.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="playButton" onclick="playMusic()">🎵</button>
+
     <h1>อันยองงง คุณชลสิทธิ์ </h1>
     <img src="IMG_2931.jpeg" alt="รูปภาพพิเศษ" width="300">
-    <audio autoplay loop style="display: none;">
-        <source src="audio/Music.mp3" type="audio/mpeg">
-    </audio>
+
     <button class="btn" onclick="showPrompt()">อย่าจิ้มหนู!</button>
 
     <script>
+        function playMusic() {
+            document.getElementById('bgMusic').play();
+            document.getElementById('playButton').style.display = 'none'; // ซ่อนปุ่มหลังเล่นเพลง
+        }
+        
         function showPrompt() {
             alert("บอกว่าอย่าจิ้ม!! แต่ไหนๆ ก็จิ้มละ ให้ดูความลับหน่อยก็ได้ 🥰");
             let password = prompt("บททดสอบความรู้ใจ ใส่รหัสมา:");
-            if (password === "2502") { // รหัสผ่านที่ตั้งไว้
+            if (password === "2502") { 
                 window.location.href = "secret.html";
             } else {
                 alert("รหัสผิด! แค่นี้ไม่รู้ได้ไง");

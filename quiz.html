@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบสอบถามความรู้ใจ (เลือกตอบ)</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ffdde1, #ee9ca7);
+            color: #333;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        form {
+            width: 100%;
+            max-width: 800px;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            margin: 20px auto 0;
+        }
+        .btn:hover {
+            background: #ff4757;
+        }
+    </style>
+</head>
+<body>
+    <h1>แบบสอบถามความรู้ใจ (เลือกตอบ)</h1>
+    <form id="quizForm">
+        
+        <div class="question">
+            <p>1. วันเกิดของเค้าคือวันอะไร?</p>
+            <label><input type="radio" name="q1" value="อังคาร"> อังคาร</label><br>
+            <label><input type="radio" name="q1" value="จันทร์"> จันทร์</label><br>
+            <label><input type="radio" name="q1" value="พุธ"> พุธ</label><br>
+            <label><input type="radio" name="q1" value="ศุกร์"> ศุกร์</label>
+        </div>
+
+        <div class="question">
+            <p>2. สีที่เค้าชอบที่สุดคือสีอะไร?</p>
+            <label><input type="radio" name="q2" value="แดง"> แดง</label><br>
+            <label><input type="radio" name="q2" value="ฟ้า"> ฟ้า</label><br>
+            <label><input type="radio" name="q2" value="เขียว"> เขียว</label><br>
+            <label><input type="radio" name="q2" value="เหลือง"> เหลือง</label>
+        </div>
+
+        <div class="question">
+            <p>3. อาหารโปรดของเค้าคืออะไร?</p>
+            <label><input type="radio" name="q3" value="ข้าวผัด"> ข้าวผัด</label><br>
+            <label><input type="radio" name="q3" value="ต้มยำกุ้ง"> ต้มยำกุ้ง</label><br>
+            <label><input type="radio" name="q3" value="ก๋วยเตี๋ยว"> ก๋วยเตี๋ยว</label><br>
+            <label><input type="radio" name="q3" value="หมูทะ"> หมูทะ</label>
+        </div>
+
+        <div class="question">
+            <p>4. เพลงที่เค้าชอบฟังคือแนวไหน?</p>
+            <label><input type="radio" name="q4" value="ป๊อป"> ป๊อป</label><br>
+            <label><input type="radio" name="q4" value="ร็อค"> ร็อค</label><br>
+            <label><input type="radio" name="q4" value="ลูกทุ่ง"> ลูกทุ่ง</label><br>
+            <label><input type="radio" name="q4" value="แจ๊ส"> แจ๊ส</label>
+        </div>
+
+        <div class="question">
+            <p>5. เราเจอกันครั้งแรกที่ไหน?</p>
+            <label><input type="radio" name="q5" value="สวนสาธารณะ"> สวนสาธารณะ</label><br>
+            <label><input type="radio" name="q5" value="ห้าง"> ห้าง</label><br>
+            <label><input type="radio" name="q5" value="โรงแรม"> โรงแรม</label><br>
+            <label><input type="radio" name="q5" value="ตลาด"> ตลาด</label>
+        </div>
+
+        <div class="question">
+            <p>6. สัตว์ที่เราชอบที่สุด?</p>
+            <label><input type="radio" name="q6" value="แมว"> แมว</label><br>
+            <label><input type="radio" name="q6" value="หมา"> หมา</label><br>
+            <label><input type="radio" name="q6" value="มิกิ"> มิกิ</label><br>
+            <label><input type="radio" name="q6" value="ถูกทุกข้อ"> ถูกทุกข้อ</label>
+        </div>
+
+        <div class="question">
+            <p>7. ผลไม้โปรดของเรา?</p>
+            <label><input type="radio" name="q7" value="สตรอว์เบอร์รี่"> สตรอว์เบอร์รี่</label><br>
+            <label><input type="radio" name="q7" value="มะม่วง"> มะม่วง</label><br>
+            <label><input type="radio" name="q7" value="ทุเรียน"> ทุเรียน</label><br>
+            <label><input type="radio" name="q7" value="องุ่น"> องุ่น</label>
+        </div>
+
+
+        <div class="question">
+            <p>8. แม่เค้าชื่อไร?</p>
+            <label><input type="radio" name="q8" value="กนกพร"> กนกพร</label><br>
+            <label><input type="radio" name="q8" value="สุพรรณี"> สุพรรณี</label><br>
+            <label><input type="radio" name="q8" value="มะไลวัน"> มะไลวัน</label><br>
+            <label><input type="radio" name="q8" value="เจสิก้า"> เจสิก้า</label>
+        </div>
+
+
+        <div class="question">
+            <p>9. เค้าชอบเรียนวิชาอะไร?</p>
+            <label><input type="radio" name="q9" value="ฟิสิกส์"> ฟิสิกส์</label><br>
+            <label><input type="radio" name="q9" value="ไทย"> ไทย</label><br>
+            <label><input type="radio" name="q9" value="คณิต"> คณิต</label><br>
+            <label><input type="radio" name="q9" value="ชีวะ"> ชีวะ</label>
+        </div>
+
+        <div class="question">
+            <p>10. บ้านเกิดเค้า?</p>
+            <label><input type="radio" name="q10" value="บ้านแก้งนาง"> บ้านแก้งนาง</label><br>
+            <label><input type="radio" name="q10" value="บ้านตาเปอะ"> บ้านตาเปอะ</label><br>
+            <label><input type="radio" name="q10" value="บ้านงิ้ว"> บ้านงิ้ว</label><br>
+            <label><input type="radio" name="q10" value="บ้านคำชะอี"> บ้านคำชะอี</label>
+        </div>
+
+        <button type="button" class="btn" onclick="checkAnswers()">ส่งคำตอบ</button>
+    </form>
+
+    <script>
+        function checkAnswers() {
+            const correctAnswers = {
+                q1: "อังคาร",
+                q2: "เขียว",
+                q3: "หมูทะ",
+                q4: "ลูกทุ่ง",
+                q5: "โรงแรม",
+                q6: "ถูกทุกข้อ",
+                q7: "ทุเรียน",
+                q8: "มะไลวัน",
+                q9: "ชีวะ",
+                q10: "บ้านงิ้ว"
+
+            };
+
+            let score = 0;
+            let totalQuestions = Object.keys(correctAnswers).length;
+
+            for (let key in correctAnswers) {
+                const selected = document.querySelector(`input[name="${key}"]:checked`);
+                if (selected && selected.value === correctAnswers[key]) {
+                    score++;
+                }
+            }
+
+            if (score >= 8) {
+                alert(`เก่งขนาดนี้ได้รางวัลเป็นจุ๊บร้อยที รอรับเลย ตอบถูก ${score}/${totalQuestions} ข้อ`);
+            } else {
+                alert(`ได้ไง😡 ตอบถูก ${score}/${totalQuestions} ข้อ ทำใหม่เลย`);
+            }
+        }
+    </script>
+</body>
+</html>

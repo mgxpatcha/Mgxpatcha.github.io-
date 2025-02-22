@@ -7,18 +7,84 @@
     <title>สำหรับคนพิเศษ</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
             font-family: 'Arial', sans-serif;
+            text-align: center;
             background: linear-gradient(to right, #ff9a9e, #fad0c4);
             color: #fff;
+            padding: 50px;
         }
         h1 {
             font-size: 3em;
+        }
+        p {
+            font-size: 1.5em;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #ff6b6b;
+            background: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #ff6b6b;
+            color: #fff;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="Music.mp3" type="audio/mp3">
+    </audio>
+    
+    <h1>สวัสดีคุณชลสิทธิ์ ❤️</h1>
+    <img src="IMG_2931.jpeg" alt="รูปภาพพิเศษ">
+    <p>ยินดีต้อนรับสู่โลกของเรา หุหุหุ</p>
+    <button class="btn" onclick="goToNextPage()">อย่าจิ้มหนู!</button>
+
+    <script>
+        function goToNextPage() {
+            let password = prompt("บททดสอบความรู้ใจ ใส่รหัสมา:");
+            if (password === "2502") {  // เปลี่ยนรหัสได้ตามที่ต้องการ
+                window.location.href = "secret.html";
+            } else {
+                alert("รหัสผิด! แค่นี้ไม่รู้ได้ไง");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- secret.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าลับสุดยอด</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: #fff;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 3em;
+        }
+        p {
+            font-size: 1.5em;
         }
         .btn {
             padding: 10px 20px;
@@ -37,68 +103,9 @@
     </style>
 </head>
 <body>
-    <h1>อันยองคุณชลสิทธิ์</h1>
-    <img src="IMG_2931.jpeg" alt="รูปภาพพิเศษ" width="300">
-    <audio autoplay loop style="display: none;">
-        <source src="Music.mp3" type="audio/mpeg">
-    </audio>
-    <button class="btn" onclick="showPrompt()">อย่าจิ้มหนู!</button>
-
-    <script>
-        function showPrompt() {
-            alert("บอกว่าอย่าจิ้ม!! แต่ไหนๆ ก็จิ้มละ ให้ดูความลับหน่อยก็ได้ 🥰");
-            let password = prompt("บททดสอบความรู้ใจ ใส่รหัสมา:");
-            if (password === "2502") { 
-                window.location.href = "secret.html";
-            } else {
-                alert("รหัสผิด! แค่นี้ไม่รู้ได้ไง");
-            }
-        }
-    </script>
-</body>
-</html>
-
-<!-- secret.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ความลับของเรา</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #a1c4fd, #c2e9fb);
-            color: #333;
-        }
-        h1 {
-            font-size: 2.5em;
-        }
-        .btn {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            color: #fff;
-            background: #6c5b7b;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn:hover {
-            background: #355c7d;
-        }
-    </style>
-</head>
-<body>
-    <h1>แต่นแต๊นนน ✨</h1>
-    <p> 🥳</p>
-    <button class="btn" onclick="openDoc()">เปิดเอกสารลับ</button>
+    <h1>แต่นแต้นนน</h1>
+    <p>🎉</p>
+    <button class="btn" onclick="openDoc()">เปิดได้</button>
 
     <script>
         function openDoc() {
@@ -108,7 +115,6 @@
 </body>
 </html>
 
-<!-- อัปโหลดไฟล์ทั้งหมดไปที่ GitHub Pages แล้วเปิดดูได้เลย! -->
 
 git add .
 git commit -m fix layout and music"

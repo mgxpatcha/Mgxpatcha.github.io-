@@ -18,12 +18,11 @@
         p {
             font-size: 1.5em;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
         .btn {
             padding: 10px 20px;
@@ -39,28 +38,37 @@
             background: #ff6b6b;
             color: #fff;
         }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
-    <!-- เล่นเพลงอัตโนมัติ -->
     <audio autoplay loop>
         <source src="Music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <h1>สวัสดีคุณชลสิทธิ์ ❤️</h1>
+    <img src="IMG_2931.jpeg" alt="me & you">
     <p>ยินดีต้อนรับสู่ My world หุหุหุ</p>
 
-    <!-- แสดงรูป -->
-    <img src="IMG_2931.jpeg" alt="me & you">
-
-    <!-- ปุ่มกดพร้อมรหัส -->
-    <button class="btn" onclick="showMessage()">อย่าจิ้มหนู!</button>
+    <div class="btn-container">
+        <button class="btn" onclick="showMessage()">อย่าจิ้มหนู!</button>
+        <button class="btn" onclick="openDoc()">เปิดเอกสาร</button>
+    </div>
 
     <script>
         function showMessage() {
             alert("บอกว่าอย่าจิ้ม!! แต่ไหนๆ ก็จิ้มละ ให้ดูความลับหน่อยก็ได้ 🥰");
+        }
+
+        function openDoc() {
             let password = prompt("บททดสอบความรู้ใจ ใส่รหัสมา:");
-            if (password === "2502") {  // รหัสผ่าน
+            if (password === "2502") {  // เปลี่ยนรหัสได้ตามที่ต้องการ
                 window.open("3y.pdf", "_blank");
             } else {
                 alert("รหัสผิด! แค่นี้ไม่รู้ได้ไง");
@@ -70,5 +78,5 @@
 </body>
 </html>
 git add .
-git commit -m "Update index.html and add PDF"
+git commit -m fix layout and music"
 git push

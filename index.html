@@ -103,11 +103,13 @@
         let gameSpeed = 5;
 
         function drawPlayer() {
-            const img = new Image();
-            img.src = '7B3BE9B5-3612-45B9-81C0-49E61968377F.png';
-            img.onload = () => {
-            ctx.drawImage(img, player.x, player.y, player.width, player.height);
-        }};
+    const img = new Image();
+    img.src = '7B3BE9B5-3612-45B9-81C0-49E61968377F.png';
+    img.onload = () => {
+        ctx.clearRect(player.x, player.y, player.width, player.height);  // Clear previous position
+        ctx.drawImage(img, player.x, player.y, player.width, player.height);
+    };
+}
 
         function drawObstacle(obstacle) {
             ctx.fillStyle = '#ff6b6b';

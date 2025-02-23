@@ -60,8 +60,9 @@
         const ctx = canvas.getContext("2d");
         let gameStarted = false;
 
+        // เริ่มเกม
         function startGame() {
-            bgMusic.play();
+            bgMusic.play();  // เพลงเล่นต่อไป
             playButton.style.display = 'none';
             canvas.style.display = 'block';
             gameStarted = true;
@@ -101,17 +102,21 @@
         let obstacles = [];
         let score = 0;
         let gameSpeed = 5;
+        let obstacleGap = 200;  // ระยะห่างระหว่างสิ่งกีดขวาง
 
+        // วาดตัวละคร
         function drawPlayer() {
-    ctx.fillStyle = '#000000'; // กำหนดสีของตัวละครเป็นสีดำ
-    ctx.fillRect(player.x, player.y, player.width, player.height); // วาดสี่เหลี่ยม
-}
+            ctx.fillStyle = '#000000'; // ตัวละครเป็นสีดำ
+            ctx.fillRect(player.x, player.y, player.width, player.height); // วาดสี่เหลี่ยม
+        }
 
+        // วาดสิ่งกีดขวาง
         function drawObstacle(obstacle) {
             ctx.fillStyle = '#ff6b6b';
             ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         }
 
+        // ลูปเกม
         function gameLoop() {
             if (!gameStarted) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -126,6 +131,7 @@
 
             drawPlayer();
 
+            // สร้างสิ่งกีดขวางใหม่
             if (Math.random() < 0.02) {
                 obstacles.push({
                     x: canvas.width,
@@ -139,6 +145,7 @@
                 obstacle.x -= gameSpeed;
                 drawObstacle(obstacle);
 
+                // ตรวจสอบการชน
                 if (
                     player.x < obstacle.x + obstacle.width &&
                     player.x + player.width > obstacle.x &&
@@ -146,19 +153,23 @@
                     player.y + player.height > obstacle.y
                 ) {
                     alert("เกมโอเวอร์! ไม่เก่งแทร่: " + score);
+                    // เพลงยังคงเล่นต่อไปหลังเกมโอเวอร์
                     window.location.reload();
                 }
 
+                // เมื่อสิ่งกีดขวางออกจากหน้าจอ
                 if (obstacle.x + obstacle.width < 0) {
                     obstacles.splice(index, 1);
                     score++;
                 }
             });
 
+            // แสดงคะแนน
             ctx.fillStyle = '#fff';
             ctx.font = '20px Arial';
             ctx.fillText('คะแนน: ' + score, 20, 30);
 
+            // เมื่อคะแนนถึง 30 จะเปลี่ยนไปหน้า secret.html
             if (score >= 30) {
                 alert("เริ่สส ผ่านแว้วว✨");
                 window.location.href = "secret.html";
@@ -167,6 +178,7 @@
             requestAnimationFrame(gameLoop);
         }
 
+        // การกระโดด
         window.addEventListener("keydown", (e) => {
             if ((e.code === "Space" || e.code === "ArrowUp") && !player.jumping) {
                 player.dy = player.jumpStrength;
@@ -174,6 +186,7 @@
             }
         });
 
+        // การกระโดดบนมือถือ
         window.addEventListener("touchstart", () => {
             if (!player.jumping) {
                 player.dy = player.jumpStrength;
@@ -183,7 +196,6 @@
     </script>
 </body>
 </html>
-
 git add .
 git commit -m fix layout and music"
 git push

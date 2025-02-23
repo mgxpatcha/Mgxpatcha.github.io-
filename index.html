@@ -103,12 +103,8 @@
         let gameSpeed = 5;
 
         function drawPlayer() {
-    const img = new Image();
-    img.src = '7B3BE9B5-3612-45B9-81C0-49E61968377F.png';
-    img.onload = () => {
-        ctx.clearRect(player.x, player.y, player.width, player.height);  // Clear previous position
-        ctx.drawImage(img, player.x, player.y, player.width, player.height);
-    };
+    ctx.fillStyle = '#000000'; // กำหนดสีของตัวละครเป็นสีดำ
+    ctx.fillRect(player.x, player.y, player.width, player.height); // วาดสี่เหลี่ยม
 }
 
         function drawObstacle(obstacle) {

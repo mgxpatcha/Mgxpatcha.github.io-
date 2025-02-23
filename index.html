@@ -9,12 +9,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
             background: linear-gradient(to right, #ff9a9e, #fad0c4);
             color: #fff;
+            overflow: hidden;
         }
         h1 {
             font-size: 3em;
@@ -34,9 +35,11 @@
             color: #fff;
         }
         canvas {
-            background: #fff;
             display: block;
-            margin: 20px 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
         }
     </style>
 </head>
@@ -52,85 +55,92 @@
 
     <button class="btn" onclick="showPrompt()">อย่าจิ้มหนู!</button>
 
-    <!-- เกมหัวใจ -->
-    <canvas id="gameCanvas" width="400" height="600"></canvas>
+    <!-- เกมกระโดดข้ามสิ่งกีดขวาง -->
+    <canvas id="gameCanvas" width="800" height="200"></canvas>
 
     <script>
         function playMusic() {
             document.getElementById('bgMusic').play();
-            document.getElementById('playButton').style.display = 'none'; // ซ่อนปุ่มหลังเล่นเพลง
+            document.getElementById('playButton').style.display = 'none';
         }
 
         function showPrompt() {
-            alert("บอกว่าอย่าจิ้ม!! แต่ไหนๆ ก็จิ้มละ ให้ดูความลับหน่อยก็ได้ 🥰");
+            alert("บอกว่าอย่าจิ้ม!! แต่ไหนๆ ก็จิ้มละ ให้ดูความลับหน่อยก็ได้ ");
             let password = prompt("บททดสอบความรู้ใจ ใส่รหัสมา:");
             if (password === "2502") {
-                alert("เก็บหัวใจเล่นรอเพลงจบนะ! ❤️");
+                alert("เล่นเกมกระโดดรอเพลงจบนะ! 🏃‍♀️");
             } else {
                 alert("รหัสผิด! แค่นี้ไม่รู้ได้ไง");
             }
         }
 
-        // โค้ดเกมจับหัวใจ
+        // เกมกระโดดข้ามสิ่งกีดขวาง
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
 
-        let hearts = [];
+        let character = { x: 50, y: 150, width: 30, height: 30, dy: 0, gravity: 1, jumpStrength: -15 };
+        let obstacles = [];
         let score = 0;
+        let isJumping = false;
 
-        function createHeart() {
-            return {
-                x: Math.random() * canvas.width,
-                y: -30,
-                size: 30,
-                speed: 3 + Math.random() * 2,
-                type: Math.random() > 0.3 ? '❤️' : '🌧'
-            };
+        function drawCharacter() {
+            ctx.fillStyle = "#ff6b6b";
+            ctx.fillRect(character.x, character.y, character.width, character.height);
         }
 
-        function drawHeart(heart) {
-            ctx.font = `${heart.size}px Arial`;
-            ctx.fillText(heart.type, heart.x, heart.y);
+        function createObstacle() {
+            obstacles.push({ x: canvas.width, y: 150, width: 20, height: 30 });
+        }
+
+        function drawObstacles() {
+            ctx.fillStyle = "#333";
+            obstacles.forEach(obstacle => {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                obstacle.x -= 5;
+            });
+        }
+
+        function checkCollision() {
+            obstacles.forEach(obstacle => {
+                if (
+                    character.x < obstacle.x + obstacle.width &&
+                    character.x + character.width > obstacle.x &&
+                    character.y < obstacle.y + obstacle.height &&
+                    character.y + character.height > obstacle.y
+                ) {
+                    alert("ชนสิ่งกีดขวาง! คะแนน: " + score);
+                    document.location.reload();
+                }
+            });
         }
 
         function updateGame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            hearts.forEach((heart, index) => {
-                heart.y += heart.speed;
-                drawHeart(heart);
-                if (heart.y > canvas.height) {
-                    hearts.splice(index, 1);
-                }
-            });
+            drawCharacter();
+            drawObstacles();
+            checkCollision();
+
+            character.y += character.dy;
+            character.dy += character.gravity;
+
+            if (character.y > 150) {
+                character.y = 150;
+                isJumping = false;
+            }
+
+            score++;
+            if (score % 200 === 0) createObstacle();
         }
 
-        canvas.addEventListener("click", (e) => {
-            const clickX = e.offsetX;
-            const clickY = e.offsetY;
-            hearts.forEach((heart, index) => {
-                if (
-                    clickX >= heart.x &&
-                    clickX <= heart.x + heart.size &&
-                    clickY >= heart.y - heart.size &&
-                    clickY <= heart.y
-                ) {
-                    if (heart.type === '❤️') {
-                        score++;
-                        if (score === 5) {
-                            alert("เก็บหัวใจครบแล้ว! ไปหน้าความลับกัน ✨");
-                            window.location.href = "secret.html";
-                        }
-                    }
-                    hearts.splice(index, 1);
-                }
-            });
+        window.addEventListener("keydown", (e) => {
+            if (e.code === "Space" && !isJumping) {
+                character.dy = character.jumpStrength;
+                isJumping = true;
+            }
         });
 
         function gameLoop() {
             updateGame();
-            if (Math.random() < 0.05) {
-                hearts.push(createHeart());
-            }
             requestAnimationFrame(gameLoop);
         }
 

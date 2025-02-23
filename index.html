@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +33,11 @@
             background: #ff6b6b;
             color: #fff;
         }
+        canvas {
+            background: #fff;
+            display: block;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -41,31 +45,100 @@
         <source src="Music.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="playButton" onclick="playMusic()">🎵</button>
+    <button id="playButton" onclick="playMusic()">🎵 เล่นเพลง</button>
 
     <h1>อันยองงง คุณชลสิทธิ์ </h1>
     <img src="IMG_2931.jpeg" alt="รูปภาพพิเศษ" width="300">
 
     <button class="btn" onclick="showPrompt()">อย่าจิ้มหนู!</button>
 
+    <!-- เกมหัวใจ -->
+    <canvas id="gameCanvas" width="400" height="600"></canvas>
+
     <script>
         function playMusic() {
             document.getElementById('bgMusic').play();
             document.getElementById('playButton').style.display = 'none'; // ซ่อนปุ่มหลังเล่นเพลง
         }
-        
+
         function showPrompt() {
             alert("บอกว่าอย่าจิ้ม!! แต่ไหนๆ ก็จิ้มละ ให้ดูความลับหน่อยก็ได้ 🥰");
             let password = prompt("บททดสอบความรู้ใจ ใส่รหัสมา:");
-            if (password === "2502") { 
-                window.location.href = "secret.html";
+            if (password === "2502") {
+                alert("เก็บหัวใจเล่นรอเพลงจบนะ! ❤️");
             } else {
                 alert("รหัสผิด! แค่นี้ไม่รู้ได้ไง");
             }
         }
+
+        // โค้ดเกมจับหัวใจ
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let hearts = [];
+        let score = 0;
+
+        function createHeart() {
+            return {
+                x: Math.random() * canvas.width,
+                y: -30,
+                size: 30,
+                speed: 3 + Math.random() * 2,
+                type: Math.random() > 0.3 ? '❤️' : '🌧'
+            };
+        }
+
+        function drawHeart(heart) {
+            ctx.font = `${heart.size}px Arial`;
+            ctx.fillText(heart.type, heart.x, heart.y);
+        }
+
+        function updateGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach((heart, index) => {
+                heart.y += heart.speed;
+                drawHeart(heart);
+                if (heart.y > canvas.height) {
+                    hearts.splice(index, 1);
+                }
+            });
+        }
+
+        canvas.addEventListener("click", (e) => {
+            const clickX = e.offsetX;
+            const clickY = e.offsetY;
+            hearts.forEach((heart, index) => {
+                if (
+                    clickX >= heart.x &&
+                    clickX <= heart.x + heart.size &&
+                    clickY >= heart.y - heart.size &&
+                    clickY <= heart.y
+                ) {
+                    if (heart.type === '❤️') {
+                        score++;
+                        if (score === 5) {
+                            alert("เก็บหัวใจครบแล้ว! ไปหน้าความลับกัน ✨");
+                            window.location.href = "secret.html";
+                        }
+                    }
+                    hearts.splice(index, 1);
+                }
+            });
+        });
+
+        function gameLoop() {
+            updateGame();
+            if (Math.random() < 0.05) {
+                hearts.push(createHeart());
+            }
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
     </script>
 </body>
 </html>
+
 git add .
 git commit -m fix layout and music"
 git push

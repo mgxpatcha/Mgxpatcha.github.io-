@@ -102,7 +102,8 @@
         let obstacles = [];
         let score = 0;
         let gameSpeed = 5;
-        let obstacleGap = 200;  // ระยะห่างระหว่างสิ่งกีดขวาง
+        let lastObstacleX = 0;  // ตำแหน่งสิ่งกีดขวางล่าสุด
+        let obstacleGap = 300;  // ระยะห่างของสิ่งกีดขวาง
 
         // วาดตัวละคร
         function drawPlayer() {
@@ -131,14 +132,16 @@
 
             drawPlayer();
 
-            // สร้างสิ่งกีดขวางใหม่
-            if (Math.random() < 0.02) {
+            // สร้างสิ่งกีดขวางใหม่ในระยะห่างที่กำหนด
+            if (Math.random() < 0.02 && lastObstacleX + obstacleGap < canvas.width) {
+                let obstacleWidth = 30 + Math.random() * 30;
                 obstacles.push({
                     x: canvas.width,
                     y: canvas.height - 50,
-                    width: 30 + Math.random() * 30,
+                    width: obstacleWidth,
                     height: 50,
                 });
+                lastObstacleX = canvas.width + obstacleWidth; // อัพเดตตำแหน่งสิ่งกีดขวางล่าสุด
             }
 
             obstacles.forEach((obstacle, index) => {

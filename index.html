@@ -9,7 +9,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -35,11 +35,7 @@
             color: #fff;
         }
         canvas {
-            display: block;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: -1;
+            display: none; /* ซ่อนเกมไว้ก่อน */
         }
     </style>
 </head>
@@ -48,103 +44,143 @@
         <source src="Music.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="playButton" onclick="playMusic()">🎵 เล่นเพลง</button>
+    <button id="playButton" class="btn" onclick="startGame()">🎵 ใจเย็นๆ ฟังเพลงเล่นเกมชิวๆก่อน</button>
 
     <h1>อันยองงง คุณชลสิทธิ์ </h1>
     <img src="IMG_2931.jpeg" alt="รูปภาพพิเศษ" width="300">
 
     <button class="btn" onclick="showPrompt()">อย่าจิ้มหนู!</button>
 
-    <!-- เกมกระโดดข้ามสิ่งกีดขวาง -->
-    <canvas id="gameCanvas" width="800" height="200"></canvas>
+    <canvas id="gameCanvas"></canvas>
 
     <script>
-        function playMusic() {
-            document.getElementById('bgMusic').play();
-            document.getElementById('playButton').style.display = 'none';
+        const bgMusic = document.getElementById('bgMusic');
+        const playButton = document.getElementById('playButton');
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        let gameStarted = false;
+
+        function startGame() {
+            bgMusic.play();
+            playButton.style.display = 'none';
+            canvas.style.display = 'block';
+            gameStarted = true;
+            resizeCanvas();
+            gameLoop();
         }
 
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight * 0.6;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
         function showPrompt() {
-            alert("บอกว่าอย่าจิ้ม!! แต่ไหนๆ ก็จิ้มละ ให้ดูความลับหน่อยก็ได้ ");
+            alert("บอกว่าอย่าจิ้ม!! แต่ไหนๆ ก็จิ้มละ ให้ดูความลับหน่อยก็ได้ 🥰");
             let password = prompt("บททดสอบความรู้ใจ ใส่รหัสมา:");
             if (password === "2502") {
-                alert("เล่นเกมกระโดดรอเพลงจบนะ! 🏃‍♀️");
+                alert("เก่งมาก! 🎉");
+                window.location.href = "secret.html";
             } else {
                 alert("รหัสผิด! แค่นี้ไม่รู้ได้ไง");
             }
         }
 
-        // เกมกระโดดข้ามสิ่งกีดขวาง
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
+        let player = {
+            x: 50,
+            y: canvas.height - 60,
+            width: 50,
+            height: 50,
+            dy: 0,
+            gravity: 0.5,
+            jumpStrength: -10,
+            jumping: false,
+        };
 
-        let character = { x: 50, y: 150, width: 30, height: 30, dy: 0, gravity: 1, jumpStrength: -15 };
         let obstacles = [];
         let score = 0;
-        let isJumping = false;
+        let gameSpeed = 5;
 
-        function drawCharacter() {
-            ctx.fillStyle = "#ff6b6b";
-            ctx.fillRect(character.x, character.y, character.width, character.height);
+        function drawPlayer() {
+            const img = new Image();
+            img.src = 'A_cute_cartoon_character_for_a_simple_jumping_game.png';
+            ctx.drawImage(img, player.x, player.y, player.width, player.height);
         }
 
-        function createObstacle() {
-            obstacles.push({ x: canvas.width, y: 150, width: 20, height: 30 });
+        function drawObstacle(obstacle) {
+            ctx.fillStyle = '#ff6b6b';
+            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         }
-
-        function drawObstacles() {
-            ctx.fillStyle = "#333";
-            obstacles.forEach(obstacle => {
-                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-                obstacle.x -= 5;
-            });
-        }
-
-        function checkCollision() {
-            obstacles.forEach(obstacle => {
-                if (
-                    character.x < obstacle.x + obstacle.width &&
-                    character.x + character.width > obstacle.x &&
-                    character.y < obstacle.y + obstacle.height &&
-                    character.y + character.height > obstacle.y
-                ) {
-                    alert("ชนสิ่งกีดขวาง! คะแนน: " + score);
-                    document.location.reload();
-                }
-            });
-        }
-
-        function updateGame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawCharacter();
-            drawObstacles();
-            checkCollision();
-
-            character.y += character.dy;
-            character.dy += character.gravity;
-
-            if (character.y > 150) {
-                character.y = 150;
-                isJumping = false;
-            }
-
-            score++;
-            if (score % 200 === 0) createObstacle();
-        }
-
-        window.addEventListener("keydown", (e) => {
-            if (e.code === "Space" && !isJumping) {
-                character.dy = character.jumpStrength;
-                isJumping = true;
-            }
-        });
 
         function gameLoop() {
-            updateGame();
+            if (!gameStarted) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            player.dy += player.gravity;
+            player.y += player.dy;
+
+            if (player.y > canvas.height - player.height) {
+                player.y = canvas.height - player.height;
+                player.jumping = false;
+            }
+
+            drawPlayer();
+
+            if (Math.random() < 0.02) {
+                obstacles.push({
+                    x: canvas.width,
+                    y: canvas.height - 50,
+                    width: 30 + Math.random() * 30,
+                    height: 50,
+                });
+            }
+
+            obstacles.forEach((obstacle, index) => {
+                obstacle.x -= gameSpeed;
+                drawObstacle(obstacle);
+
+                if (
+                    player.x < obstacle.x + obstacle.width &&
+                    player.x + player.width > obstacle.x &&
+                    player.y < obstacle.y + obstacle.height &&
+                    player.y + player.height > obstacle.y
+                ) {
+                    alert("เกมโอเวอร์! ไม่เก่งแทร่: " + score);
+                    window.location.reload();
+                }
+
+                if (obstacle.x + obstacle.width < 0) {
+                    obstacles.splice(index, 1);
+                    score++;
+                }
+            });
+
+            ctx.fillStyle = '#fff';
+            ctx.font = '20px Arial';
+            ctx.fillText('คะแนน: ' + score, 20, 30);
+
+            if (score >= 30) {
+                alert("เริ่สส ผ่านแว้วว✨");
+                window.location.href = "secret.html";
+            }
+
             requestAnimationFrame(gameLoop);
         }
 
-        gameLoop();
+        window.addEventListener("keydown", (e) => {
+            if ((e.code === "Space" || e.code === "ArrowUp") && !player.jumping) {
+                player.dy = player.jumpStrength;
+                player.jumping = true;
+            }
+        });
+
+        window.addEventListener("touchstart", () => {
+            if (!player.jumping) {
+                player.dy = player.jumpStrength;
+                player.jumping = true;
+            }
+        });
     </script>
 </body>
 </html>

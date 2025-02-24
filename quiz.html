@@ -135,9 +135,10 @@
             <label><input type="radio" name="q10" value="บ้านคำชะอี"> บ้านคำชะอี</label>
         </div>
 
-        <button type="button" class="btn" onclick="checkAnswers()">ส่งคำตอบ</button>
-    </form>
-
+   <form id="quizForm">
+    <button type="button" class="btn" onclick="checkAnswers()">ส่งคำตอบ</button>
+</form>
+        
     <script>
         function checkAnswers() {
      const correctAnswers = {
@@ -154,11 +155,10 @@
     };
 
     let score = 0;
-    let totalQuestions = Object.keys(correctAnswers).length;
 
     for (let key in correctAnswers) {
-        const selected = document.querySelector(`input[name="${key}"]:checked`);
-        if (selected && selected.value === correctAnswers[key]) {
+        const selectedOption = document.querySelector(`input[name="${key}"]:checked`);
+        if (selectedOption && selectedOption.value === correctAnswers[key]) {
             score++;
         }
     }

@@ -135,13 +135,14 @@
             // สร้างสิ่งกีดขวางใหม่ในระยะห่างที่กำหนด
  if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - obstacleGap) {
     let obstacleWidth = 30 + Math.random() * 30;
+    obstacleGap = 400 + Math.random() * 300; // ระยะห่าง 400-700px แบบสุ่ม
     obstacles.push({
         x: canvas.width,
         y: canvas.height - 50,
         width: obstacleWidth,
         height: 50,
     });
-    lastObstacleX = canvas.width + obstacleWidth; // อัพเดตตำแหน่งสิ่งกีดขวางล่าสุด
+    lastObstacleX = canvas.width + obstacleWidth;
 }
 
             obstacles.forEach((obstacle, index) => {

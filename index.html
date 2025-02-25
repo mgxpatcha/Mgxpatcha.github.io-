@@ -117,21 +117,23 @@
             ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         }
 
-        // ลูปเกม
-        function gameLoop() {
-            if (!gameStarted) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+     // ลูปเกม
+function gameLoop() {
+    if (!gameStarted) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            player.dy += player.gravity;
-            player.y += player.dy;
+    // เพิ่มความเร็วตามคะแนน
+    gameSpeed = 5 + score * 0.1;
 
-            if (player.y > canvas.height - player.height) {
-                player.y = canvas.height - player.height;
-                player.jumping = false;
-            }
+    player.dy += player.gravity;
+    player.y += player.dy;
 
-            drawPlayer();
+    if (player.y > canvas.height - player.height) {
+        player.y = canvas.height - player.height;
+        player.jumping = false;
+    }
 
+    drawPlayer();
             // สร้างสิ่งกีดขวางใหม่ในระยะห่างที่กำหนด
  if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - obstacleGap) {
     let obstacleWidth = 30 + Math.random() * 30;

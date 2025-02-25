@@ -133,16 +133,16 @@
             drawPlayer();
 
             // สร้างสิ่งกีดขวางใหม่ในระยะห่างที่กำหนด
-            if (Math.random() < 0.02 && lastObstacleX + obstacleGap < canvas.width) {
-                let obstacleWidth = 30 + Math.random() * 30;
-                obstacles.push({
-                    x: canvas.width,
-                    y: canvas.height - 50,
-                    width: obstacleWidth,
-                    height: 50,
-                });
-                lastObstacleX = canvas.width + obstacleWidth; // อัพเดตตำแหน่งสิ่งกีดขวางล่าสุด
-            }
+ if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - obstacleGap) {
+    let obstacleWidth = 30 + Math.random() * 30;
+    obstacles.push({
+        x: canvas.width,
+        y: canvas.height - 50,
+        width: obstacleWidth,
+        height: 50,
+    });
+    lastObstacleX = canvas.width + obstacleWidth; // อัพเดตตำแหน่งสิ่งกีดขวางล่าสุด
+}
 
             obstacles.forEach((obstacle, index) => {
                 obstacle.x -= gameSpeed;
@@ -200,5 +200,5 @@
 </body>
 </html>
 git add .
-git commit -m fix layout and music"
+git commit -m fix layout and music เพิ่มเกม"
 git push

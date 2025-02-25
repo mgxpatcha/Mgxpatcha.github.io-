@@ -136,7 +136,7 @@
         </div>
 
     <button type="button" class="btn" onclick="checkAnswers()">ส่งคำตอบ</button>
-        
+</form>
     <script>
         function checkAnswers() {
     const correctAnswers = {
@@ -152,22 +152,25 @@
         q10: "บ้านงิ้ว"
     };
 
-    const totalQuestions = Object.keys(correctAnswers).length;
     let score = 0;
+    let totalQuestions = Object.keys(correctAnswers).lenght;
 
     for (let key in correctAnswers) {
-        const selectedOption = document.querySelector(`input[name="${key}"]:checked`);
-        if (selectedOption && selectedOption.value === correctAnswers[key]) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (selected && selected.value === correctAnswers[key]) {
             score++;
         }
     }
 
     if (score >= 8) {
-        alert(`เก่งขนาดนี้ได้รางวัลเป็นจุ๊บร้อยที รอรับเลย (ล้อเล่น เดี๋ยวเค้าเลี้ยงหมูทะนะะฮิฮิ) ตอบถูก ${score}/${totalQuestions} ข้อ`);
+        alert(`เก่งขนาดนี้ได้รางวัลเป็นจุ๊บร้อยที รอรับเลย ล้อเล่น เดี๋ยวเค้าเลี้ยงหมูทะนะะฮิฮิ ตอบถูก ${score}/${totalQuestions} ข้อ`);
     } else {
         alert(`ได้ไง😡 ตอบถูก ${score}/${totalQuestions} ข้อ ทำใหม่เลย`);
     }
 }
+    </script>
+    </body>
+</html>
 git add .
-git commit -m "แก้ไขโครงสร้างแบบสอบถามและฟังก์ชันตรวจคำตอบ  แก้ไขกดปุ่มไม่ได"
+git commit -m "แก้ไขโครงสร้าง"
 git push
